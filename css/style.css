@@ -4,6 +4,7 @@
 
 .drink-pricing-calculator{
     margin:  50px auto;
+    /* 사이트 크기에 따라 width 100%혹은 내부 값을 바꾸세요 */
     max-width: 800px;
     display:  flex;
     justify-content: center;
@@ -12,6 +13,11 @@
 .drink-pricing-calculator > #input-field{
     max-width: 300px;
     flex : 1;
+}
+
+.drink-pricing-calculator > #input-field hr{
+
+    margin:20px 0 40px 0  ;
 }
 
 .drink-pricing-calculator > #input-field > div{

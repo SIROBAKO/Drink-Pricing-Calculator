@@ -49,8 +49,6 @@
             유동적으로 인원추가 
 
             x명, 얼마씩 또는, 기존인원의 %로
-
-        
         -->
         <div id="input-field">
             <label for="total-people">인원수</label>
@@ -97,7 +95,6 @@
                 <input id="snack-price" placeholder="예: 10000원"/>
 
                 
-                <input type="button" value="술찌 추가" onclick="addNonDrinkPrice()"/>
             </div>
         
             <div id="late-arrival">   
@@ -107,7 +104,7 @@
                 <input id="late-people-1" placeholder="예: 1명" />
                 <label for="late-percent-1">할당 %</label>
                 <input id="late-percent-1" placeholder="예: 40%" />
-                <input type="button" value="인원 추가"/>
+                <input type="button" value="인원" onclick="addLateArrivalPeople()"/>
             </div>
 
             <input type="button" value="계산" onclick="calculateTotalPrice()"/>

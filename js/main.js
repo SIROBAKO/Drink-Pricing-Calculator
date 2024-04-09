@@ -3,6 +3,8 @@ window.onload = function() {
 
     const placeElements = document.querySelectorAll('input[id*="price"]');
 
+    const percentElements = document.querySelectorAll('input[id*="percent"]');
+
     const closeElements = document.querySelectorAll('[id^="close"]');
 
     const modeDivs = document.querySelectorAll('#input-field > div');
@@ -10,8 +12,7 @@ window.onload = function() {
     const drinkPriceElement = document.getElementById('drink-price');
     
     const selcetConsole = document.getElementById('mode-select');
-    // const snackPriceElement = document.getElementById('snack-price');
-
+  
     var regex = /^[0-9,]*$/;
 
     // 각 요소에 대해 이벤트 리스너를 추가합니다.
@@ -21,10 +22,10 @@ window.onload = function() {
                 return;
             }
             if (!regex.test(this.value)) {
-                var numberValue = parseInt(this.value.replace(/,/g, ""), 10);
+                var numberValue = parseInt(this.value);
                 if (!isNaN(numberValue)) {
                  
-                    this.value = numberValue.toLocaleString();
+                    this.value = numberValue;
                 } else {
                 
                     this.value = "";
@@ -55,7 +56,29 @@ window.onload = function() {
             }
         });
     });
-   
+    
+    percentElements.forEach(element => {
+        element.addEventListener('keyup', function(event) {
+            if (event.key === "Backspace" && this.value === "") {
+                return;
+            }
+            if (!regex.test(this.value)) {
+                var numberValue = parseInt(this.value);
+                if (!isNaN(numberValue)) {
+                    this.value = numberValue;
+                } else {
+                    this.value = "";
+                }
+                alert("숫자만 입력해주세요.");
+            }else{
+                if(this.value > 300){
+                    alert("최대값은 300%입니다.");
+                    this.value = 300;
+                }
+            }
+        });
+    });
+    
     closeElements.forEach(element => {
         element.addEventListener('click', function() {
             closeId = this.id.replace("close-","")
@@ -115,7 +138,7 @@ window.onload = function() {
 
 
 let countDrinksPrice = 1;
-let countNonDrinkPrice = 1;
+let countLateArrivalPeople = 1;
 const calculateTotalPrice = () => {
  
     const modeSelect = document.getElementById('mode-select');
@@ -156,19 +179,41 @@ const addDrinksPrice = () => {
     const lastChild = drinksElement.children[drinksElement.children.length - 1];
     drinksElement.insertBefore(itsOnPriceInput, lastChild);
 }
+const addLateArrivalPeople = () => {
+    countLateArrivalPeople++;
+    const lateArrivalElement = document.getElementById('late-arrival');
+    const elementsToAdd = [];
 
-const addNonDrinkPrice = () => {
-    countNonDrinkPrice++
-    const drinksElement = document.getElementById('drinks');
+    const hrElement = document.createElement('hr');
+    elementsToAdd.push(hrElement);
+    
+    const labelElement1 = document.createElement('label');
+    labelElement1.setAttribute('for', `late-people-${countLateArrivalPeople}`);
+    labelElement1.textContent = '늦게 온 인원수';
+    elementsToAdd.push(labelElement1);
+    
+    const inputElement1 = document.createElement('input');
+    inputElement1.setAttribute('id', `late-people-${countLateArrivalPeople}`);
+    inputElement1.setAttribute('placeholder', '예: 1명');
+    elementsToAdd.push(inputElement1);
+    
+    const labelElement2 = document.createElement('label');
+    labelElement2.setAttribute('for', `late-price-${countLateArrivalPeople}`);
+    labelElement2.textContent = '할당 가격, %';
+    elementsToAdd.push(labelElement2);
+    
+    const inputElement2 = document.createElement('input');
+    inputElement2.setAttribute('id', `late-price-${countLateArrivalPeople}`);
+    inputElement2.setAttribute('placeholder', `예: ${(countLateArrivalPeople-1) * 10 + 40}%`);
+    elementsToAdd.push(inputElement2);
 
-    const itsOnPriceInput = document.createElement('input');
-    itsOnPriceInput.setAttribute('id', 'its-on-price-' + countDrinksPrice );
-    itsOnPriceInput.setAttribute('placeholder', `예: ${(countDrinksPrice-1) * 10000 + 30000}원` );
-
-
-    const lastChild = drinksElement.children[drinksElement.children.length - 1];
-    drinksElement.insertBefore(itsOnPriceInput, lastChild);
+    // 마지막 직전에 추가
+    const lastChild = lateArrivalElement.children[lateArrivalElement.children.length - 1];
+    elementsToAdd.forEach(element => {
+        lateArrivalElement.insertBefore(element, lastChild);
+    });
 }
+
 
 const calculateDefaultMode = () => {
     const totalPeopleInput = document.getElementById('total-people');
@@ -247,7 +292,7 @@ const calculateDrinksMode = () => {
         additionalPayment = Math.round((totalPrice - totalItsOnPrice) / (totalPeople - itsOnPriceInputs.length));
         resultField.innerHTML = `<p>멋쟁이 ${itsOnPriceInputs.length}분이 ${totalItsOnPrice}원을 내준 덕분에<br>나머지 인원은 ${additionalPayment}원만 지불하면 됩니다.</p>`;
     } else {
-        additionalPayment = Math.round((totalPrice - totalItsOnPrice) / totalPeople);
+        additionalPayment = Math.round(totalPrice  / totalPeople);
         resultField.innerHTML = `<p>멋쟁이 ${itsOnPriceInputs.length}분이 ${totalItsOnPrice}원을 내줬지만 배응망덕한 나머지 인원 덕분에 멋쟁이 포함 모두 ${additionalPayment}원씩 지불하면 됩니다.</p>`;
     }
 
@@ -262,3 +307,4 @@ const calculateLateArrivalMode = () => {
 const calculateMixedMode = () => {
     // 종합 모드의 계산 로직을 구현하세요
 };
+
