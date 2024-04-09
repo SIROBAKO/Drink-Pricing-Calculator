@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="./js/main.js" ></script>
+</head>
+<body>
+    <div class="drink-pricing-calculator">
+        <!-- todo 리스트
+            ui 제작 리스트 
+
+            기본정보 : 총인원, 총가격
+
+            선택정보 : 술값, 안주값
+            
+
+
+            모드 4개 설정
+
+            기본모드(N 빵)
+
+
+            한턱쏜다(특정인원이 얼마만큼 추가로 냄)
+            경우의 수 2개 해당 가격만 낸거, 가격내고 남은거 추가로 N빵한거
+            
+            1. 낸사람 : 낸만큼
+            2. 나머지 : 총가격 - 낸만큼 / (총인원 - 쏜사람 인원)
+            
+            3. 낸사람 : 낸만큼 + (남은금액 / 총인원)
+            4. 나머지 : 총가격 - 낸만큼 / (총인원)
+
+
+
+            나는 술안마셔(음주 인원 별도 계산)
+            술마신인원, 안마신인원 나눠서 계산
+            안주값 = 안주가격 / 총인원
+            술값 = 술가격 / 술먹은인원 
+            안먹은사람 = 안주값
+            먹은사람은 술값 + 안주값 
+
+
+            늦게온인원 
+            늦게온인원에게 값 할당
+            특정값 할당 또는 0.x인분 할당
+
+            유동적으로 인원추가 
+
+            x명, 얼마씩 또는, 기존인원의 %로
+
+        
+        -->
+        <div id="input-field">
+            <label for="total-people">인원수</label>
+            <input id="total-people" placeholder="예: 5명" />
+        
+            <label for="total-price">총가격</label>
+            <input id="total-price" placeholder="예: 50000원" />
+        
+            <label for="mode-select">모드선택</label>
+            <select id="mode-select">
+                <option value="default" selected>기본모드</option>
+                <option value="drinks">한턱 쏜다</option>
+                <option value="no-alcohol">나는 술안마셔</option>
+                <option value="late-arrival">나는 늦게왔자나</option>
+                <option value="mixed-mode">종합모드</option>
+            </select>
+        
+            <div id="drinks">
+                <h3>한턱 쏜다</h3>
+                <icon  id="close-drinks">X</icon>
+                <label for="only-price">이것만</label>
+                <input id="only-price" type="radio" name="payment-option" value="only-price" checked />
+        
+                <label for="additional-payment-price">추가 정산</label>
+                <input id="additional-payment-price" type="radio" name="payment-option" value="additional-payment" />
+                <br />
+        
+                <label for="its-on-price-1">추가 금액</label>
+                <input id="its-on-price-1" placeholder="예: 30000원"/>
+                
+                <input type="button" value="멋쟁이 추가" onclick="addDrinksPrice()"/>
+            </div>
+        
+            <div id="no-alcohol">
+                <h3>나는 술 안마셔</h3>
+                <icon  id="close-no-alcohol">X</icon>
+                <label for="non-drink-price">안먹는인원</label>
+                <input id="non-drink-price" placeholder="예: 2명" />
+            
+                <label for="drink-price">술값</label>
+                <input id="drink-price" placeholder="예: 20000원" />
+            
+                <label for="snack-price">안주값</label>
+                <input id="snack-price" placeholder="예: 10000원"/>
+
+                
+                <input type="button" value="술찌 추가" onclick="addNonDrinkPrice()"/>
+            </div>
+        
+            <div id="late-arrival">   
+                <h3>나는 늦게왔자나</h3>
+                <icon id="close-late-arrival">X</icon>
+                <label for="late-people-1">늦게온 인원수</label>
+                <input id="late-people-1" placeholder="예: 1명" />
+                <label for="late-percent-1">할당 %</label>
+                <input id="late-percent-1" placeholder="예: 40%" />
+                <input type="button" value="인원 추가"/>
+            </div>
+
+            <input type="button" value="계산" onclick="calculateTotalPrice()"/>
+        
+        </div>
+        
+        <div id="result-field">
+            <p>추후 설명 작성</p>
+        </div>
+    </div>
+
+</body>
+</html>

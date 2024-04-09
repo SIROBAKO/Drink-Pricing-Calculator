@@ -1,0 +1,89 @@
+*{
+    margin: 0;    
+}
+
+.drink-pricing-calculator{
+    margin:  50px auto;
+    max-width: 800px;
+    display:  flex;
+    justify-content: center;
+}
+
+.drink-pricing-calculator > #input-field{
+    max-width: 300px;
+    flex : 1;
+}
+
+.drink-pricing-calculator > #input-field > div{
+    display: none;
+    position: relative;
+    padding: 30px 0 40px 0;
+
+    border-top: 1px solid black;
+}
+
+.drink-pricing-calculator >  #input-field > div > icon{
+ position: absolute;
+ font-size: 2rem;
+ right: 10px;
+ top: 30px;
+ font-weight: bold;
+ padding: 0 10px;
+ cursor: pointer;
+}
+
+
+.drink-pricing-calculator > #input-field h3{
+    margin:20px 0 ;
+}
+
+.drink-pricing-calculator > #input-field > label{
+    padding: 10px 10px 5px 5px;
+  
+}
+.drink-pricing-calculator > #input-field  input, select{
+    padding: 15px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin: 10px 0 20px 0 ;
+    box-sizing: border-box;
+
+    text-align: right;
+}
+
+.drink-pricing-calculator > #input-field  select, input[type=button]{
+   text-align: center !important;
+   cursor: pointer;
+  
+}
+.drink-pricing-calculator > #input-field > #drinks input[type=radio]{
+    width: 10%;
+    margin: 30px 0 50px 0 ;
+}
+
+
+
+.drink-pricing-calculator > #result-field {
+    flex: 1;
+    background-color: rgb(240, 240, 240);
+
+    margin: 15px;
+    min-height: 200px;
+    
+    padding: 15px;
+
+}
+
+
+
+@media (max-width: 768px) {
+    .drink-pricing-calculator{
+        display: block;
+    }
+    .drink-pricing-calculator > #input-field{
+        margin:  0 auto;
+        width: 100%;
+    }
+}
