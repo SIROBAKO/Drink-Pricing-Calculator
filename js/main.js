@@ -168,6 +168,11 @@ const calculateTotalPrice = () => {
 };
 
 const addDrinksPrice = () => {
+
+    if(document.getElementById('its-on-price-' + countDrinksPrice).value == ""){
+        alert("추가하기엔 비어있는 칸이 있습니다.")
+        return;
+    }
     countDrinksPrice++
     const drinksElement = document.getElementById('drinks');
 
@@ -271,9 +276,16 @@ const calculateDrinksMode = () => {
 
     const totalPeopleInput = document.getElementById('total-people');
     const totalPriceInput = document.getElementById('total-price');
-    const itsOnPriceInputs = document.querySelectorAll('[id^=its-on-price]');
     const additionalPaymentPriceInput = document.getElementById('additional-payment-price');
-
+    
+    let itsOnPriceInputs = document.querySelectorAll('[id^=its-on-price]');
+    let filteredInputs = [];
+    itsOnPriceInputs.forEach(input => {
+        if (input.value !== '' && parseFloat(input.value) !== 0) {
+            filteredInputs.push(input);
+        }
+    });
+    itsOnPriceInputs = filteredInputs;
 
     const totalPeople = parseInt(totalPeopleInput.value);
     const totalPrice = parseInt(totalPriceInput.value.replace(/[^0-9]/g, ''));
@@ -284,6 +296,11 @@ const calculateDrinksMode = () => {
     itsOnPriceInputs.forEach(input => {
         totalItsOnPrice += parseInt(input.value.replace(/[^0-9]/g, ''));
     });
+
+    if(totalItsOnPrice == 0){
+        alert("값을 입력해주세요")
+        return;
+    }
 
     let itsOnPricePerPerson, additionalPayment;
     const resultField = document.getElementById('result-field');
