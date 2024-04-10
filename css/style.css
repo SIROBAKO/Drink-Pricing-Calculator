@@ -1,3 +1,11 @@
+:root {
+    --border-color: rgb(216, 214, 214);
+    --buttoncolor: #f5f5f5;
+    --bg-color-result : #f5f5f5;
+    --color-explain: rgba(0, 0, 0, 0.5);
+}
+
+
 *{
     margin: 0;    
 }
@@ -20,19 +28,19 @@
     margin:20px 0 40px 0  ;
 }
 
-.drink-pricing-calculator > #input-field > div{
+.drink-pricing-calculator > #input-field > div:not(#default){
     display: none;
     position: relative;
-    padding: 30px 0 40px 0;
-
-    border-top: 1px solid black;
+    padding: 20px  0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .drink-pricing-calculator >  #input-field > div > icon{
  position: absolute;
  font-size: 2rem;
- right: 10px;
- top: 30px;
+ right: 0;
+ top: 35px;
  font-weight: bold;
  padding: 0 10px;
  cursor: pointer;
@@ -52,18 +60,27 @@
     width: 100%;
     max-width: 300px;
     border-radius: 5px;
-    border: 1px solid gray;
-    margin: 10px 0 20px 0 ;
+    border: 1px solid var(--border-color);;
+    margin: 10px 0 15px 0 ;
     box-sizing: border-box;
 
     text-align: right;
 }
 
-.drink-pricing-calculator > #input-field  select, input[type=button]{
+.drink-pricing-calculator > #input-field  select{
    text-align: center !important;
    cursor: pointer;
-  
+    margin: 10px 0 0 0 !important;
+
 }
+
+.drink-pricing-calculator > #input-field   input[type=button]{
+    text-align: center !important;
+    cursor: pointer;
+    margin: 10px 0 0 0 !important;
+    background-color: var(--buttoncolor);
+}
+
 .drink-pricing-calculator > #input-field > #drinks input[type=radio]{
     width: 10%;
     margin: 30px 0 50px 0 ;
@@ -73,16 +90,30 @@
 
 .drink-pricing-calculator > #result-field {
     flex: 1;
-    background-color: rgb(240, 240, 240);
-
-    margin: 15px;
+    background-color: var(--bg-color-result);
+    margin: 15px 15px 0;
     min-height: 200px;
-    
-    padding: 15px;
+    padding: 25px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 
+.drink-pricing-calculator > #result-field div:not(#default-mode-explain ){
+   display: none;
+}
+
+.drink-pricing-calculator > #result-field div:not(#calculator-result ){
+    color: var(--color-explain);
+}
+
+
+.drink-pricing-calculator > #result-field > div > p{
+    padding: 10px 0;
+    line-height: 1.5;
+}
 
 @media (max-width: 768px) {
     .drink-pricing-calculator{
